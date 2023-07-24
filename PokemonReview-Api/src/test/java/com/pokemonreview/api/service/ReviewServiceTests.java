@@ -76,12 +76,12 @@ public class ReviewServiceTests {
 
     @Test
     public void ReviewService_GetReviewsByPokemonId_ReturnReviewDto() {
-        int reviewId = 1;
-        when(reviewRepository.findByPokemonId(reviewId))
+        int pokemonId = 1;
+        when(reviewRepository.findByPokemonId(pokemonId))
                 .thenReturn(Arrays.asList(review));
 
         List<ReviewDto> pokemonReturn =
-                reviewService.getReviewsByPokemonId(reviewId);
+                reviewService.getReviewsByPokemonId(pokemonId);
 
         Assertions.assertThat(pokemonReturn).isNotNull();
         System.out.println("pokemonReturn = " + pokemonReturn);
