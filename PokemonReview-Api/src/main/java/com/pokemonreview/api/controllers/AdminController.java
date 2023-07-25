@@ -26,7 +26,7 @@ public class AdminController {
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping
-		@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public PageResponse getAllUsers(
 						@RequestParam(value = "pageNo", defaultValue = "0", required = false) 
             int pageNo,
@@ -61,7 +61,8 @@ public class AdminController {
     }
 
     @GetMapping("/{id}")
-		@PreAuthorize("hasAuthority('ROLE_USER')")
+//  @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     public UserDto getUser(@PathVariable("id") int userId) {
         UserEntity existUser = userRepository
                 .findById(userId)
