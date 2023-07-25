@@ -62,15 +62,12 @@ public class ReviewControllerTests {
     }
 
     @Test
-    public void ReviewController_GetReviewsByPokemonId_ReturnReviewDto() 
-			throws Exception {
+    public void ReviewController_GetReviewsByPokemonId_ReturnReviewDto() throws Exception {
         int pokemonId = 1;
         when(reviewService.getReviewsByPokemonId(pokemonId))
                 .thenReturn(Arrays.asList(reviewDto));
 
-        ResultActions response = mockMvc.perform(get("/api/pokemon/1/reviews")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(pokemonDto)));
+        ResultActions response = mockMvc.perform(get("/api/pokemon/{pokemonId}/reviews",pokemonId));
 
         response.andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.size()",
@@ -84,7 +81,8 @@ public class ReviewControllerTests {
         when(reviewService.updateReview(pokemonId, reviewId, reviewDto))
                 .thenReturn(reviewDto);
 
-        ResultActions response = mockMvc.perform(put("/api/pokemon/1/reviews/1")
+        ResultActions response = mockMvc.perform(put("/api/pokemon/{pokemonId}/reviews/{reviewId}",
+                pokemonId,reviewId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(reviewDto)));
 
@@ -104,7 +102,7 @@ public class ReviewControllerTests {
         when(reviewService.createReview(pokemonId, reviewDto))
                 .thenReturn(reviewDto);
 
-        ResultActions response = mockMvc.perform(post("/api/pokemon/1/reviews")
+        ResultActions response = mockMvc.perform(post("/api/pokemon/{pokemonId}/reviews",pokemonId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(reviewDto)));
 
@@ -124,8 +122,8 @@ public class ReviewControllerTests {
         when(reviewService.getReviewById(reviewId, pokemonId))
                 .thenReturn(reviewDto);
 
-        ResultActions response = mockMvc.perform(get("/api/pokemon/1/reviews/1")
-                .contentType(MediaType.APPLICATION_JSON));
+        ResultActions response = mockMvc.perform(get("/api/pokemon/{pokemonId}/reviews/{reviewId}",
+                pokemonId,reviewId));
 
         response.andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.title",
@@ -144,8 +142,8 @@ public class ReviewControllerTests {
         doNothing().when(reviewService)
                 .deleteReview(pokemonId, reviewId);
 
-        ResultActions response = mockMvc.perform(delete("/api/pokemon/1/reviews/1")
-                .contentType(MediaType.APPLICATION_JSON));
+        ResultActions response = mockMvc.perform(delete("/api/pokemon/{pokemonId}/reviews/{reviewId}",
+                pokemonId,reviewId));
 
         response.andExpect(MockMvcResultMatchers.status().isOk());
     }
