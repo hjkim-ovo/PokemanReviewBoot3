@@ -31,11 +31,11 @@ jobs:
       run: mvnw clean install
 
     - name: Build & push Docker image
-        uses: mr-smithers-excellent/docker-build-push@v5
-        with:
-          image: happy3/springbootvuejs
-          tags: boot_v3
-          registry: docker.io
-          dockerfile: Dockerfile
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+      uses: mr-smithers-excellent/docker-build-push@v5
+      with:
+        image: happy3/springbootvuejs
+        tags: boot_v3
+        registry: docker.io
+        dockerfile: Dockerfile
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
