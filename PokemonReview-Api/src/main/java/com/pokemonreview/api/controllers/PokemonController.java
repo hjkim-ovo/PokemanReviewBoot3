@@ -2,10 +2,13 @@ package com.pokemonreview.api.controllers;
 
 import com.pokemonreview.api.dto.PageResponse;
 import com.pokemonreview.api.dto.PokemonDto;
+import com.pokemonreview.api.models.PokemonType;
 import com.pokemonreview.api.service.PokemonService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/pokemon")
@@ -48,4 +51,8 @@ public class PokemonController {
         return new ResponseEntity<>("Pokemon delete", HttpStatus.OK);
     }
 
+    @GetMapping("/pokemontypes")
+    public ResponseEntity<List<String>> getPokemonTypes() {
+        return new ResponseEntity<>(PokemonType.nameList(), HttpStatus.OK);
+    }
 }
