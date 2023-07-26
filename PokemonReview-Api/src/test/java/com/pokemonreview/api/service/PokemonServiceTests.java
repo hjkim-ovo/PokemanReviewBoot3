@@ -14,10 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -69,7 +66,7 @@ public class PokemonServiceTests {
 //        when(pokemonRepository.findAll(Mockito.any(Pageable.class)))
 //                .thenReturn(pokemons);
 
-        Pageable pageable = PageRequest.of(1, 10);
+        Pageable pageable = PageRequest.of(1, 10, Sort.by("id").descending());
         Page<Pokemon> pokemons = new PageImpl<>(pokemonList,pageable,20);
         when(pokemonRepository.findAll(pageable))
                 .thenReturn(pokemons);

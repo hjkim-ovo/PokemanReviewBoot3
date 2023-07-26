@@ -34,8 +34,7 @@ public class AdminController {
         System.out.println(">>> pageNo = " + pageNo);
         System.out.println("<<<< pageSize = " + pageSize);
 
-        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("id")
-                .descending());
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
         Page<UserEntity> userEntityPage = userRepository.findAll(pageable);
         List<UserEntity> listOfUser = userEntityPage.getContent();
         List<UserDto> userDtoList =
