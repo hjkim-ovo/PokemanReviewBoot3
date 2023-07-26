@@ -98,6 +98,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>springboot-vuejs-backend</finalName>
 	</build>
 
 </project>
