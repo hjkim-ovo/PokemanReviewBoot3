@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,14 +29,13 @@ public class AdminController {
     @GetMapping
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public PageResponse getAllUsers(
-						@RequestParam(value = "pageNo", defaultValue = "0", required = false) 
-            int pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "2", required = false) 
-            int pageSize) {
+						@RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
+                        @RequestParam(value = "pageSize", defaultValue = "2", required = false) int pageSize) {
         System.out.println(">>> pageNo = " + pageNo);
         System.out.println("<<<< pageSize = " + pageSize);
 
-        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("id")
+                .descending());
         Page<UserEntity> userEntityPage = userRepository.findAll(pageable);
         List<UserEntity> listOfUser = userEntityPage.getContent();
         List<UserDto> userDtoList =
