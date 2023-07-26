@@ -28,13 +28,13 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build with Maven
-        run: mvn clean package
+        run: mvn clean install
 
       - name: Build & push Docker image
         uses: mr-smithers-excellent/docker-build-push@v5
         with:
-          image: myuser/springbootvuejs
-          tags: latest
+          image: happy93/springbootvuejs
+          tags: boot_v3
           registry: docker.io
           dockerfile: Dockerfile
           username: ${{ secrets.DOCKER_USERNAME }}
